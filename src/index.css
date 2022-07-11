@@ -7,6 +7,10 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+html {
+  overflow: hidden;
+}
+
 input {
   outline: none;
 }
@@ -105,6 +109,7 @@ input {
 .file__info {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 8px;
   position: absolute;
   top: 50%;
@@ -173,6 +178,7 @@ Home
 .home__img--wrapper {
   max-width: 550px;
   max-height: 550px;
+  user-select: none;
 }
 
 .home__img {
@@ -227,10 +233,6 @@ Navigation
   background-color: var(--blue);
   color: white;
   transition: filter 200ms ease;
-}
-
-.nav__button[disabled]:hover {
-  filter: contrast(0.8);
 }
 
 .nav__button:disabled {

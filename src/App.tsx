@@ -1,4 +1,3 @@
-import './App.css';
 import MyForm from './components/MyForm';
 import FormContextProvider from './context/FormContextProvider';
 
