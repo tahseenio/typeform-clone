@@ -1,11 +1,12 @@
 import './App.css';
 import MyForm from './components/MyForm';
+import FormContextProvider from './context/FormContextProvider';
 
 function App() {
   return (
-    <div className='App'>
+    <FormContextProvider>
       <MyForm />
-    </div>
+    </FormContextProvider>
   );
 }
 

@@ -14,6 +14,11 @@ input {
 :root {
   --blue: #0445af;
   --light-blue: rgba(4, 69, 175, 0.3);
+  --lighter-blue: #e5ecf7;
+}
+
+.blue {
+  color: var(--blue);
 }
 
 .button__helper {
@@ -51,7 +56,7 @@ input {
   outline: none;
   border: none;
   border-bottom: 1px solid var(--light-blue);
-  color: var(--light-blue);
+  color: var(--blue);
   width: 100%;
   resize: none;
   overflow: hidden;
@@ -85,12 +90,62 @@ input {
   color: var(--light-blue);
 }
 
+.input--file {
+  position: relative;
+  cursor: pointer;
+  background-color: var(--lighter-blue);
+  border: 1px dashed var(--light-blue);
+  border-radius: 4px;
+  width: 100%;
+  height: 300px;
+  margin: 32px 0 12px 0;
+  transition: background-color 200ms ease;
+}
+
+.file__info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.file {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.file__info--para1 {
+  font-size: 0.9rem;
+}
+.file__info--para2 {
+  font-size: 0.8rem;
+}
+
+.upload_image--wrapper {
+  position: relative;
+}
+
+.upload-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.input--file:hover {
+  background-color: var(--light-blue);
+}
+
 .question__number {
   color: var(--blue);
   font-size: 1rem;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 6px;
   left: -36px;
 }
 
@@ -138,7 +193,7 @@ Question
 */
 
 .question {
-  max-width: 920px;
+  max-width: 950px;
   width: 100%;
   padding: 0 100px;
 }
@@ -148,4 +203,48 @@ Question
   font-size: 0.75rem;
   color: var(--blue);
   margin-bottom: 12px;
+}
+
+/* 
+
+Navigation
+
+*/
+
+.navigation {
+  width: 30px;
+  position: absolute;
+  display: flex;
+  bottom: 16px;
+  right: 60px;
+  transform: translateX(-50%, -50%);
+}
+
+.nav__button {
+  cursor: pointer;
+  border: none;
+  padding: 6px 10px;
+  background-color: var(--blue);
+  color: white;
+  transition: filter 200ms ease;
+}
+
+.nav__button[disabled]:hover {
+  filter: contrast(0.8);
+}
+
+.nav__button:disabled {
+  cursor: default;
+  filter: contrast(0.8);
+}
+
+.nav__button--left {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.nav__button--right {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
