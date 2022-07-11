@@ -5,6 +5,7 @@
 // error states (like for #6)
 // upload state for resume
 // FInd out why nav buttons are grey when they are going disabled to usable
+// make animations go in reverse when going back
 
 import Navigation from './Navigation';
 import { useFormContext } from '../context/FormContextProvider';
