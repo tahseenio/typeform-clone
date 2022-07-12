@@ -6,6 +6,7 @@ import Upload from './ui/Upload';
 import UploadArrow from './ui/UploadArrow';
 import { motion } from 'framer-motion';
 import { Qvariants, reverseVariants } from '../variants';
+import { useForm } from 'react-hook-form';
 
 interface Props {
   number: number;
@@ -13,7 +14,8 @@ interface Props {
 
 const ResumeQuestion = ({ number }: Props) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const { setTab, isReversed, setIsReversed } = useFormContext();
+  const { formData, setFormData, setTab, isReversed, setIsReversed } =
+    useFormContext();
 
   useEffect(() => {
     const keyHandler = (e: KeyboardEvent) => {
@@ -31,6 +33,12 @@ const ResumeQuestion = ({ number }: Props) => {
     setTab((state) => state + 1);
   };
 
+  const { register, handleSubmit } = useForm<any>();
+  const onSubmit = (data: any) => {
+    console.log('data', data);
+    setFormData([...formData, { ...data }]);
+  };
+
   return (
     <motion.main
       className='question'
@@ -45,27 +53,34 @@ const ResumeQuestion = ({ number }: Props) => {
           {number} <Arrow />
         </div>
       </h1>
-      <div className='input--file'>
-        <input type='file' className='file' />
-        <div className='file__info'>
-          <div className='upload_image--wrapper'>
-            <div className='upload-arrow'>
-              <UploadArrow />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className='input--file'>
+          <input {...register(`Q${number}`)} type='file' className='file' />
+          <div className='file__info'>
+            <div className='upload_image--wrapper'>
+              <div className='upload-arrow'>
+                <UploadArrow />
+              </div>
+              <Upload />
             </div>
-            <Upload />
+            <p className='file__info--para1'>
+              <strong className='blue'>Choose file</strong> or{' '}
+              <strong>drag here</strong>
+            </p>
+            <p className='file__info--para2'>Size limit: 10MB</p>
           </div>
-          <p className='file__info--para1'>
-            <strong className='blue'>Choose file</strong> or{' '}
-            <strong>drag here</strong>
-          </p>
-          <p className='file__info--para2'>Size limit: 10MB</p>
         </div>
-      </div>
-      <div className='button--wrapper'>
-        <button ref={buttonRef} className='button' onClick={handleClickForward}>
-          OK <Tick />
-        </button>
-      </div>
+        <div className='button--wrapper'>
+          <button
+            type='submit'
+            ref={buttonRef}
+            className='button'
+            onClick={handleClickForward}
+          >
+            OK <Tick />
+          </button>
+        </div>
+      </form>
     </motion.main>
   );
 };

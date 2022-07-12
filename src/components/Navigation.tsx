@@ -21,7 +21,7 @@ const Navigation = () => {
 
   return (
     <>
-      {tab !== 0 && tab !== 11 ? (
+      {tab !== 0 && tab !== 10 ? (
         <div className='navigation'>
           <button
             ref={leftButton}
@@ -34,7 +34,7 @@ const Navigation = () => {
           <button
             ref={rightButton}
             className='nav__button nav__button--right'
-            disabled={tab === 10 ? true : false}
+            disabled={tab === 9 ? true : false}
             onClick={handleClickForward}
           >
             <DownNav fill={'white'} />

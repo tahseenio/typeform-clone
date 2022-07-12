@@ -5,6 +5,7 @@ import Arrow from './ui/Arrow';
 import Tick from './ui/Tick';
 import { motion } from 'framer-motion';
 import { Qvariants, reverseVariants } from '../variants';
+import { useForm } from 'react-hook-form';
 
 interface Props {
   number: number;
@@ -22,7 +23,8 @@ const TextAreaQuestion = ({
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const { pages, tab, setTab, isReversed, setIsReversed } = useFormContext();
+  const { formData, setFormData, tab, setTab, isReversed, setIsReversed } =
+    useFormContext();
 
   // const keyHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
   //   console.log('PRESSING');
@@ -36,16 +38,16 @@ const TextAreaQuestion = ({
 
   const keyHandler = useCallback(
     (e: KeyboardEvent) => {
-      if (tab === pages.length - 2) {
+      if (tab === 9) {
         if (e.ctrlKey === true) {
           buttonRef.current?.click();
         }
       }
-      if (e.key === 'Enter' && tab !== pages.length - 2) {
+      if (e.key === 'Enter' && tab !== 9) {
         buttonRef.current?.click();
       }
     },
-    [tab, pages.length]
+    [tab]
   );
 
   useEffect(() => {
@@ -57,6 +59,12 @@ const TextAreaQuestion = ({
   const handleClickForward = () => {
     setIsReversed(false);
     setTab((state) => state + 1);
+  };
+
+  const { register, handleSubmit } = useForm<any>();
+  const onSubmit = (data: any) => {
+    console.log('data', data);
+    setFormData([...formData, { ...data }]);
   };
 
   return (
@@ -73,22 +81,31 @@ const TextAreaQuestion = ({
           {number} <Arrow />
         </div>
       </h1>
-      <ReactTextareaAutosize
-        ref={textAreaRef}
-        className='textarea'
-        placeholder='Type your answer here...'
-      />
-      {/* <p className='textarea--helper'>
-        <strong>Enter ↵</strong> to make a line break
-      </p> */}
-      <div className='button--wrapper'>
-        <button ref={buttonRef} className='button' onClick={handleClickForward}>
-          {buttonText} <Tick />
-        </button>
-        <p className='button__helper'>
-          press <strong>{helperText}</strong>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <ReactTextareaAutosize
+          {...register(`Q${number}`)}
+          // ref={textAreaRef}
+          defaultValue={formData[number - 1]?.[`Q${number}`] ?? ''}
+          className='textarea'
+          placeholder='Type your answer here...'
+        />
+        <p className='textarea--helper'>
+          <strong>Shift + Enter ↵</strong> to make a line break
         </p>
-      </div>
+        <div className='button--wrapper'>
+          <button
+            type='submit'
+            ref={buttonRef}
+            className='button'
+            onClick={handleClickForward}
+          >
+            {buttonText} <Tick />
+          </button>
+          <p className='button__helper'>
+            press <strong>{helperText}</strong>
+          </p>
+        </div>
+      </form>
     </motion.main>
   );
 };
