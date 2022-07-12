@@ -7,7 +7,17 @@ const Navigation = () => {
   const leftButton = useRef<HTMLButtonElement | null>(null);
   const rightButton = useRef<HTMLButtonElement | null>(null);
 
-  const { tab, setTab } = useFormContext();
+  const { setIsReversed, tab, setTab } = useFormContext();
+
+  const handleClickBack = () => {
+    setIsReversed(true);
+    setTab((state) => state - 1);
+  };
+
+  const handleClickForward = () => {
+    setIsReversed(false);
+    setTab((state) => state + 1);
+  };
 
   return (
     <>
@@ -17,25 +27,17 @@ const Navigation = () => {
             ref={leftButton}
             className='nav__button nav__button--left'
             disabled={tab !== 1 ? false : true}
-            onClick={() => setTab((state) => state - 1)}
+            onClick={handleClickBack}
           >
-            <UpNav
-              fill={
-                leftButton.current?.disabled ? 'rgb(146, 146, 146)' : 'white'
-              }
-            />
+            <UpNav fill={'white'} />
           </button>
           <button
             ref={rightButton}
             className='nav__button nav__button--right'
             disabled={tab === 10 ? true : false}
-            onClick={() => setTab((state) => state + 1)}
+            onClick={handleClickForward}
           >
-            <DownNav
-              fill={
-                rightButton.current?.disabled ? 'rgb(146, 146, 146)' : 'white'
-              }
-            />
+            <DownNav fill={'white'} />
           </button>
         </div>
       ) : null}

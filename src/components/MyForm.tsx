@@ -6,6 +6,7 @@
 // upload state for resume
 // FInd out why nav buttons are grey when they are going disabled to usable
 // make animations go in reverse when going back
+// allow enter in textare to create line break
 
 import Navigation from './Navigation';
 import { useFormContext } from '../context/FormContextProvider';

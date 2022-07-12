@@ -9,6 +9,8 @@ export interface ContextProps {
   tab: number;
   setTab: React.Dispatch<React.SetStateAction<number>>;
   pages: pageProps[];
+  isReversed: boolean;
+  setIsReversed: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface pageProps {
@@ -24,6 +26,8 @@ const FormContext = createContext<ContextProps | {}>({});
 
 const FormContextProvider = ({ children }: ProviderProps) => {
   const [tab, setTab] = useState(0);
+
+  const [isReversed, setIsReversed] = useState(false);
 
   const pages = [
     { number: 0, page: <Home key={0} /> },
@@ -138,6 +142,8 @@ const FormContextProvider = ({ children }: ProviderProps) => {
         tab,
         setTab,
         pages,
+        isReversed,
+        setIsReversed,
       }}
     >
       {children}

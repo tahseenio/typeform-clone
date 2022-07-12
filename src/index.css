@@ -232,12 +232,12 @@ Navigation
   padding: 6px 10px;
   background-color: var(--blue);
   color: white;
-  transition: filter 200ms ease;
+  transition: background-color 200ms ease;
 }
 
 .nav__button:disabled {
   cursor: default;
-  filter: contrast(0.8);
+  background-color: gray;
 }
 
 .nav__button--left {

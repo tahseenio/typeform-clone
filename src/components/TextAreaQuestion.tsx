@@ -4,7 +4,7 @@ import { useFormContext } from '../context/FormContextProvider';
 import Arrow from './ui/Arrow';
 import Tick from './ui/Tick';
 import { motion } from 'framer-motion';
-import { Qvariants } from '../variants';
+import { Qvariants, reverseVariants } from '../variants';
 
 interface Props {
   number: number;
@@ -22,7 +22,7 @@ const TextAreaQuestion = ({
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const { pages, tab, setTab } = useFormContext();
+  const { pages, tab, setTab, isReversed, setIsReversed } = useFormContext();
 
   // const keyHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
   //   console.log('PRESSING');
@@ -54,10 +54,15 @@ const TextAreaQuestion = ({
     return () => document.removeEventListener('keypress', (e) => keyHandler(e));
   }, [keyHandler]);
 
+  const handleClickForward = () => {
+    setIsReversed(false);
+    setTab((state) => state + 1);
+  };
+
   return (
     <motion.main
       className='question'
-      variants={Qvariants}
+      variants={isReversed ? reverseVariants : Qvariants}
       initial='initial'
       animate='animate'
       exit='exit'
@@ -77,11 +82,7 @@ const TextAreaQuestion = ({
         <strong>Enter ↵</strong> to make a line break
       </p> */}
       <div className='button--wrapper'>
-        <button
-          ref={buttonRef}
-          className='button'
-          onClick={() => setTab((state) => state + 1)}
-        >
+        <button ref={buttonRef} className='button' onClick={handleClickForward}>
           {buttonText} <Tick />
         </button>
         <p className='button__helper'>

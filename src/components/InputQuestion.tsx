@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { useFormContext } from '../context/FormContextProvider';
-import { Qvariants } from '../variants';
+import { Qvariants, reverseVariants } from '../variants';
 
 import Arrow from './ui/Arrow';
 import Tick from './ui/Tick';
@@ -13,7 +13,7 @@ interface Props {
 
 const InputQuestion = ({ number, question }: Props) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const { setTab } = useFormContext();
+  const { isReversed, setTab, setIsReversed } = useFormContext();
 
   useEffect(() => {
     const keyHandler = (e: KeyboardEvent) => {
@@ -26,10 +26,15 @@ const InputQuestion = ({ number, question }: Props) => {
     return () => document.removeEventListener('keypress', (e) => keyHandler(e));
   });
 
+  const handleClickForward = () => {
+    setIsReversed(false);
+    setTab((state) => state + 1);
+  };
+
   return (
     <motion.main
       className='question'
-      variants={Qvariants}
+      variants={isReversed ? reverseVariants : Qvariants}
       initial='initial'
       animate='animate'
       exit='exit'
@@ -42,11 +47,7 @@ const InputQuestion = ({ number, question }: Props) => {
       </h1>
       <input className='input' placeholder='Type your answer here...' />
       <div className='button--wrapper'>
-        <button
-          ref={buttonRef}
-          className='button'
-          onClick={() => setTab((state) => state + 1)}
-        >
+        <button ref={buttonRef} className='button' onClick={handleClickForward}>
           OK <Tick />
         </button>
         <p className='button__helper'>

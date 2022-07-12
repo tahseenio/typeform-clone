@@ -5,7 +5,7 @@ import Tick from './ui/Tick';
 import Upload from './ui/Upload';
 import UploadArrow from './ui/UploadArrow';
 import { motion } from 'framer-motion';
-import { Qvariants } from '../variants';
+import { Qvariants, reverseVariants } from '../variants';
 
 interface Props {
   number: number;
@@ -13,7 +13,7 @@ interface Props {
 
 const ResumeQuestion = ({ number }: Props) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const { setTab } = useFormContext();
+  const { setTab, isReversed, setIsReversed } = useFormContext();
 
   useEffect(() => {
     const keyHandler = (e: KeyboardEvent) => {
@@ -26,10 +26,15 @@ const ResumeQuestion = ({ number }: Props) => {
     return () => document.removeEventListener('keypress', (e) => keyHandler(e));
   });
 
+  const handleClickForward = () => {
+    setIsReversed(false);
+    setTab((state) => state + 1);
+  };
+
   return (
     <motion.main
       className='question'
-      variants={Qvariants}
+      variants={isReversed ? reverseVariants : Qvariants}
       initial='initial'
       animate='animate'
       exit='exit'
@@ -57,11 +62,7 @@ const ResumeQuestion = ({ number }: Props) => {
         </div>
       </div>
       <div className='button--wrapper'>
-        <button
-          ref={buttonRef}
-          className='button'
-          onClick={() => setTab((state) => state + 1)}
-        >
+        <button ref={buttonRef} className='button' onClick={handleClickForward}>
           OK <Tick />
         </button>
       </div>
