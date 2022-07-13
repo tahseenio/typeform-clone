@@ -6,6 +6,7 @@
 // upload state for resume
 // dont allow submission until all values have been filled
 // style error messages
+// disallow moving to next screen if question is required
 // BUG If form is not done in order then there will be issues tracking question answers and its default values.
 // //Possible fix: just use array filter and find the value and then use that
 // BUG pressing enter while in textbox makes a line break and then also submits it. It shouldnt make a line break
