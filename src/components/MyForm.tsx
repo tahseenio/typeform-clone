@@ -2,6 +2,7 @@
 
 // TODO
 // error states (like for #6)
+//  -- add submit validation, if required parts are not filled -> throw error
 // upload state for resume
 // BUG If form is not done in order then there will be issues tracking question answers.
 ///// FIX the question answers array push and update methods

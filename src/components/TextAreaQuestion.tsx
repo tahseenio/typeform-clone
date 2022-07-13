@@ -6,6 +6,7 @@ import Tick from './ui/Tick';
 import { motion } from 'framer-motion';
 import { Qvariants, reverseVariants } from '../variants';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 interface Props {
   number: number;
@@ -61,7 +62,15 @@ const TextAreaQuestion = ({
     setTab((state) => state + 1);
   };
 
-  const { register, handleSubmit } = useForm<Record<string, string>>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Record<string, string>>({
+    mode: 'onBlur',
+    // resolver: yupResolver(schema),
+  });
+
   const onSubmit = (data: Record<string, string>) => {
     if (!!formData[number - 1]) {
       console.log('it exists');
@@ -77,6 +86,7 @@ const TextAreaQuestion = ({
       console.log('new value');
       setFormData([...formData, { ...data }]);
     }
+    handleClickForward();
   };
 
   return (
@@ -104,13 +114,9 @@ const TextAreaQuestion = ({
         <p className='textarea--helper'>
           <strong>Shift + Enter ↵</strong> to make a line break
         </p>
+        <p>{errors[`Q${number}`] && errors[`Q${number}`]?.message}</p>
         <div className='button--wrapper'>
-          <button
-            type='submit'
-            ref={buttonRef}
-            className='button'
-            onClick={handleClickForward}
-          >
+          <button type='submit' ref={buttonRef} className='button'>
             {buttonText} <Tick />
           </button>
           <p className='button__helper'>

@@ -3,6 +3,8 @@ import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useFormContext } from '../context/FormContextProvider';
 import { Qvariants, reverseVariants } from '../variants';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schemaSelector } from './data/schema';
 
 import Arrow from './ui/Arrow';
 import Tick from './ui/Tick';
@@ -14,7 +16,8 @@ interface Props {
 
 const InputQuestion = ({ number, question }: Props) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const { formData, setFormData, isReversed, setTab, setIsReversed } =
+
+  const { formData, setFormData, isReversed, tab, setTab, setIsReversed } =
     useFormContext();
 
   useEffect(() => {
@@ -33,8 +36,17 @@ const InputQuestion = ({ number, question }: Props) => {
     setTab((state) => state + 1);
   };
 
-  const { register, handleSubmit } = useForm<Record<string, string>>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Record<string, string>>({
+    mode: 'onBlur',
+    resolver: yupResolver(schemaSelector(tab)),
+  });
+
   const onSubmit = (data: Record<string, string>) => {
+    console.log('submitted');
     if (!!formData[number - 1]) {
       const newArr = formData.map((item) => {
         if (item[`Q${number}`]) {
@@ -47,6 +59,7 @@ const InputQuestion = ({ number, question }: Props) => {
     } else {
       setFormData([...formData, { ...data }]);
     }
+    handleClickForward();
   };
   return (
     <motion.main
@@ -69,13 +82,9 @@ const InputQuestion = ({ number, question }: Props) => {
           className='input'
           placeholder='Type your answer here...'
         />
+        <p>{errors[`Q${number}`] && errors[`Q${number}`]?.message}</p>
         <div className='button--wrapper'>
-          <button
-            type='submit'
-            ref={buttonRef}
-            className='button'
-            onClick={handleClickForward}
-          >
+          <button type='submit' ref={buttonRef} className='button'>
             OK <Tick />
           </button>
           <p className='button__helper'>
