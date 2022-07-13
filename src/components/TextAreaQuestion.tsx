@@ -4,10 +4,10 @@ import { useFormContext } from '../context/FormContextProvider';
 import Arrow from './ui/Arrow';
 import Tick from './ui/Tick';
 import { motion } from 'framer-motion';
-import { Qvariants, reverseVariants } from './data/variants';
+import { Qvariants, reverseVariants } from '../data/variants';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schemaSelector } from './data/schema';
+import { schemaSelector } from '../data/schema';
 
 interface Props {
   number: number;

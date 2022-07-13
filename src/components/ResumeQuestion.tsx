@@ -5,7 +5,7 @@ import Tick from './ui/Tick';
 import Upload from './ui/Upload';
 import UploadArrow from './ui/UploadArrow';
 import { motion } from 'framer-motion';
-import { Qvariants, reverseVariants } from './data/variants';
+import { Qvariants, reverseVariants } from '../data/variants';
 import { useForm } from 'react-hook-form';
 
 interface Props {

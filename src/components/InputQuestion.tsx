@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useFormContext } from '../context/FormContextProvider';
-import { Qvariants, reverseVariants } from './data/variants';
+import { Qvariants, reverseVariants } from '../data/variants';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schemaSelector } from './data/schema';
+import { schemaSelector } from '../data/schema';
 
 import Arrow from './ui/Arrow';
 import Tick from './ui/Tick';
