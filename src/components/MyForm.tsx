@@ -1,8 +1,8 @@
+//  I realised how complex it can get as the project gets bigger and bigger. Something you may not have noticed beforehand, that is now causing an issue, has caused me to redesign my whole logic e.g my array update logic for certain questions as some users may skip a few questions and complete the later ones.
+
 // TODO
-// progress bar up top
 // error states (like for #6)
 // upload state for resume
-// remove 'any' types
 // BUG If form is not done in order then there will be issues tracking question answers.
 ///// FIX the question answers array push and update methods
 
@@ -18,7 +18,6 @@ import ProgressBar from './ProgressBar';
 
 const MyForm = () => {
   const { tab, formData } = useFormContext();
-
   const pages = [
     { number: 0, page: <Home key={0} /> },
     {

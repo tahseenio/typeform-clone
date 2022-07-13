@@ -61,8 +61,8 @@ const TextAreaQuestion = ({
     setTab((state) => state + 1);
   };
 
-  const { register, handleSubmit } = useForm<any>();
-  const onSubmit = (data: any) => {
+  const { register, handleSubmit } = useForm<Record<string, string>>();
+  const onSubmit = (data: Record<string, string>) => {
     if (!!formData[number - 1]) {
       console.log('it exists');
       const newArr = formData.map((item) => {

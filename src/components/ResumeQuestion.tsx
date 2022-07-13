@@ -33,8 +33,8 @@ const ResumeQuestion = ({ number }: Props) => {
     setTab((state) => state + 1);
   };
 
-  const { register, handleSubmit } = useForm<any>();
-  const onSubmit = (data: any) => {
+  const { register, handleSubmit } = useForm<Record<string, string>>();
+  const onSubmit = (data: Record<string, string>) => {
     console.log('data', data);
     setFormData([...formData, { ...data }]);
   };

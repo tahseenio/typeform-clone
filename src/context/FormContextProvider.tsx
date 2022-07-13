@@ -4,8 +4,8 @@ export interface ContextProps {
   setTab: React.Dispatch<React.SetStateAction<number>>;
   isReversed: boolean;
   setIsReversed: React.Dispatch<React.SetStateAction<boolean>>;
-  formData: any[];
-  setFormData: React.Dispatch<React.SetStateAction<any[]>>;
+  formData: Record<string, string>[];
+  setFormData: React.Dispatch<React.SetStateAction<Record<string, string>[]>>;
 }
 
 export interface ProviderProps {

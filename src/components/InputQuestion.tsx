@@ -12,14 +12,6 @@ interface Props {
   question: string;
 }
 
-type FormData = {
-  Q1: string;
-};
-
-interface FormProps {
-  Q1: string;
-}
-
 const InputQuestion = ({ number, question }: Props) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const { formData, setFormData, isReversed, setTab, setIsReversed } =
@@ -41,8 +33,8 @@ const InputQuestion = ({ number, question }: Props) => {
     setTab((state) => state + 1);
   };
 
-  const { register, handleSubmit } = useForm<any>();
-  const onSubmit = (data: any) => {
+  const { register, handleSubmit } = useForm<Record<string, string>>();
+  const onSubmit = (data: Record<string, string>) => {
     if (!!formData[number - 1]) {
       const newArr = formData.map((item) => {
         if (item[`Q${number}`]) {

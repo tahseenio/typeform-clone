@@ -1,8 +1,12 @@
 // TODO MAKE THIS WORK
 
-import { useEffect } from 'react';
+import { RefObject, useEffect } from 'react';
 
-const useCheckPressEnter = ({ reference }: any) => {
+interface Props {
+  reference: RefObject<HTMLButtonElement>;
+}
+
+const useCheckPressEnter = ({ reference }: Props) => {
   useEffect(() => {
     const keyHandler = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
