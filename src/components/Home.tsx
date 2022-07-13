@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import homeImg from '../assets/home.png';
 import { useFormContext } from '../context/FormContextProvider';
-import { Qvariants } from '../variants';
+import { Qvariants } from './data/variants';
 
 const Home = () => {
   const { setTab } = useFormContext();

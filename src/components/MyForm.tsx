@@ -4,8 +4,11 @@
 // error states (like for #6)
 //  -- add submit validation, if required parts are not filled -> throw error
 // upload state for resume
-// BUG If form is not done in order then there will be issues tracking question answers.
-///// FIX the question answers array push and update methods
+// dont allow submission until all values have been filled
+// style error messages
+// BUG If form is not done in order then there will be issues tracking question answers and its default values.
+// //Possible fix: just use array filter and find the value and then use that
+// BUG pressing enter while in textbox makes a line break and then also submits it. It shouldnt make a line break
 
 import Navigation from './Navigation';
 import { useFormContext } from '../context/FormContextProvider';
@@ -108,6 +111,7 @@ const MyForm = () => {
           question={`That's all we need for now. Anything else we should know?`}
           buttonText={'Submit'}
           helperText={'Ctrl + Enter ↵'}
+          textBoxText={'Enter ↵'}
           key={9}
         />
       ),

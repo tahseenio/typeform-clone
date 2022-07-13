@@ -18,7 +18,8 @@ const FormContextProvider = ({ children }: ProviderProps) => {
   const [formData, setFormData] = useState<[]>([]);
 
   useEffect(() => {
-    console.log('FORM DATA IS: ', formData);
+    // console.log('FORM DATA IS: ', formData);
+    //
   }, [formData]);
 
   const [tab, setTab] = useState(0);

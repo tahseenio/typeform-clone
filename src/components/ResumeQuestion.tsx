@@ -5,7 +5,7 @@ import Tick from './ui/Tick';
 import Upload from './ui/Upload';
 import UploadArrow from './ui/UploadArrow';
 import { motion } from 'framer-motion';
-import { Qvariants, reverseVariants } from '../variants';
+import { Qvariants, reverseVariants } from './data/variants';
 import { useForm } from 'react-hook-form';
 
 interface Props {
@@ -35,8 +35,22 @@ const ResumeQuestion = ({ number }: Props) => {
 
   const { register, handleSubmit } = useForm<Record<string, string>>();
   const onSubmit = (data: Record<string, string>) => {
-    console.log('data', data);
-    setFormData([...formData, { ...data }]);
+    console.log('completed resume form');
+    if (!!formData[number - 1]) {
+      console.log('updating resume');
+      const newArr = formData.map((item) => {
+        if (item[`Q${number}`]) {
+          return {
+            ...data,
+          };
+        } else return item;
+      });
+      setFormData(newArr);
+    } else {
+      console.log('new resume');
+      setFormData([...formData, { ...data }]);
+    }
+    handleClickForward();
   };
 
   return (
@@ -71,12 +85,7 @@ const ResumeQuestion = ({ number }: Props) => {
           </div>
         </div>
         <div className='button--wrapper'>
-          <button
-            type='submit'
-            ref={buttonRef}
-            className='button'
-            onClick={handleClickForward}
-          >
+          <button type='submit' ref={buttonRef} className='button'>
             OK <Tick />
           </button>
         </div>

@@ -4,15 +4,17 @@ import { useFormContext } from '../context/FormContextProvider';
 import Arrow from './ui/Arrow';
 import Tick from './ui/Tick';
 import { motion } from 'framer-motion';
-import { Qvariants, reverseVariants } from '../variants';
+import { Qvariants, reverseVariants } from './data/variants';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { schemaSelector } from './data/schema';
 
 interface Props {
   number: number;
   question: string;
   buttonText?: string;
   helperText?: string;
+  textBoxText?: string;
 }
 
 const TextAreaQuestion = ({
@@ -20,6 +22,7 @@ const TextAreaQuestion = ({
   question,
   buttonText = 'OK',
   helperText = 'Enter ↵',
+  textBoxText = 'Shift + Enter ↵',
 }: Props) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -65,15 +68,19 @@ const TextAreaQuestion = ({
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors },
   } = useForm<Record<string, string>>({
     mode: 'onBlur',
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schemaSelector(tab)),
   });
+
+  useEffect(() => {
+    setFocus(`Q${number}`);
+  }, [number, setFocus]);
 
   const onSubmit = (data: Record<string, string>) => {
     if (!!formData[number - 1]) {
-      console.log('it exists');
       const newArr = formData.map((item) => {
         if (item[`Q${number}`]) {
           return {
@@ -83,7 +90,6 @@ const TextAreaQuestion = ({
       });
       setFormData(newArr);
     } else {
-      console.log('new value');
       setFormData([...formData, { ...data }]);
     }
     handleClickForward();
@@ -106,13 +112,12 @@ const TextAreaQuestion = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <ReactTextareaAutosize
           {...register(`Q${number}`)}
-          // ref={textAreaRef}
           defaultValue={formData[number - 1]?.[`Q${number}`] ?? ''}
           className='textarea'
           placeholder='Type your answer here...'
         />
         <p className='textarea--helper'>
-          <strong>Shift + Enter ↵</strong> to make a line break
+          <strong>{textBoxText}</strong> to make a line break
         </p>
         <p>{errors[`Q${number}`] && errors[`Q${number}`]?.message}</p>
         <div className='button--wrapper'>

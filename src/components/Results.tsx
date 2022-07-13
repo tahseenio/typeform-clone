@@ -2,8 +2,9 @@ import { useFormContext } from '../context/FormContextProvider';
 
 const Results = () => {
   const { formData } = useFormContext();
+  console.log(formData);
 
-  return <pre>{JSON.stringify(formData, null, 2)}</pre>;
+  return <div>Submitted. Check Console log for data</div>;
 };
 
 export default Results;

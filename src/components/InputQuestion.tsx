@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useFormContext } from '../context/FormContextProvider';
-import { Qvariants, reverseVariants } from '../variants';
+import { Qvariants, reverseVariants } from './data/variants';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaSelector } from './data/schema';
 
@@ -39,14 +39,18 @@ const InputQuestion = ({ number, question }: Props) => {
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors },
   } = useForm<Record<string, string>>({
     mode: 'onBlur',
     resolver: yupResolver(schemaSelector(tab)),
   });
 
+  useEffect(() => {
+    setFocus(`Q${number}`);
+  }, [number, setFocus]);
+
   const onSubmit = (data: Record<string, string>) => {
-    console.log('submitted');
     if (!!formData[number - 1]) {
       const newArr = formData.map((item) => {
         if (item[`Q${number}`]) {

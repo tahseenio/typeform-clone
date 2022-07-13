@@ -224,7 +224,6 @@ Navigation
   display: flex;
   bottom: 16px;
   right: 60px;
-  transform: translateX(-50%, -50%);
 }
 
 .nav__button {
