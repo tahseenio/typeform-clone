@@ -59,7 +59,7 @@ input {
 .textarea {
   outline: none;
   border: none;
-  border-bottom: 1px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
   color: var(--blue);
   width: 100%;
   resize: none;
@@ -78,7 +78,7 @@ input {
   font-size: 2rem;
   line-height: 3.5rem;
   border: none;
-  border-bottom: 1px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
   color: var(--blue);
   width: 100%;
   margin: 32px 0 12px 0;
@@ -155,6 +155,7 @@ input {
 }
 
 .container {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -249,4 +250,23 @@ Navigation
 .nav__button--right {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
+}
+
+/* 
+
+Progress Bar
+
+*/
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  background-color: var(--light-blue);
+  width: 100%;
+  height: 4px;
+}
+
+.progress-bar--actual-progress {
+  height: 100%;
+  background-color: var(--blue);
 }

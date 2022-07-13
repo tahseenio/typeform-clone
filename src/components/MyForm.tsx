@@ -1,14 +1,10 @@
 // TODO
 // progress bar up top
-// exit and enter animations
-// press enter and press enter issues on textarea issue
 // error states (like for #6)
 // upload state for resume
-// FInd out why nav buttons are grey when they are going disabled to usable
-// make animations go in reverse when going back
-// allow enter in textare to create line break
-// fix layout shift change when focusing input
-// create controlled input
+// remove 'any' types
+// BUG If form is not done in order then there will be issues tracking question answers.
+///// FIX the question answers array push and update methods
 
 import Navigation from './Navigation';
 import { useFormContext } from '../context/FormContextProvider';
@@ -18,6 +14,7 @@ import InputQuestion from './InputQuestion';
 import TextAreaQuestion from './TextAreaQuestion';
 import ResumeQuestion from './ResumeQuestion';
 import Results from './Results';
+import ProgressBar from './ProgressBar';
 
 const MyForm = () => {
   const { tab, formData } = useFormContext();
@@ -40,7 +37,7 @@ const MyForm = () => {
         <InputQuestion
           number={2}
           question={`Thanks ${
-            formData[0]?.Q1.split(' ')[0] ?? ''
+            formData[0]?.Q1?.split(' ')[0] ?? ''
           }. What's your email address?`}
           key={2}
         />
@@ -123,6 +120,7 @@ const MyForm = () => {
 
   return (
     <div className='container'>
+      <ProgressBar />
       <Navigation />
       <AnimatePresence exitBeforeEnter={true}>
         {pages.map((item) => {

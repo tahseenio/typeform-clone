@@ -8,11 +8,6 @@ export interface ContextProps {
   setFormData: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-interface pageProps {
-  number: string;
-  page: JSX.Element;
-}
-
 export interface ProviderProps {
   children: JSX.Element;
 }

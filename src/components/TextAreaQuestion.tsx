@@ -21,7 +21,6 @@ const TextAreaQuestion = ({
   helperText = 'Enter ↵',
 }: Props) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const { formData, setFormData, tab, setTab, isReversed, setIsReversed } =
     useFormContext();
@@ -38,6 +37,7 @@ const TextAreaQuestion = ({
 
   const keyHandler = useCallback(
     (e: KeyboardEvent) => {
+      if (e.shiftKey === true) return;
       if (tab === 9) {
         if (e.ctrlKey === true) {
           buttonRef.current?.click();
@@ -63,8 +63,20 @@ const TextAreaQuestion = ({
 
   const { register, handleSubmit } = useForm<any>();
   const onSubmit = (data: any) => {
-    console.log('data', data);
-    setFormData([...formData, { ...data }]);
+    if (!!formData[number - 1]) {
+      console.log('it exists');
+      const newArr = formData.map((item) => {
+        if (item[`Q${number}`]) {
+          return {
+            ...data,
+          };
+        } else return item;
+      });
+      setFormData(newArr);
+    } else {
+      console.log('new value');
+      setFormData([...formData, { ...data }]);
+    }
   };
 
   return (
