@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 
-/* eslint-disable no-unused-vars */
-const Q1schema = yup.object().shape({
+export const Q1schema = yup.object().shape({
   Q1: yup.string().required('A name is required'),
 });
 
