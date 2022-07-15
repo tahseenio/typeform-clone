@@ -6,6 +6,8 @@
 // upload state for resume
 // dont allow submission until all values have been filled
 // style error messages
+// make responsive
+// add picture to results page
 // disallow moving to next screen if question is required
 // BUG If form is not done in order then there will be issues tracking question answers and its default values.
 // //Possible fix: just use array filter and find the value and then use that
