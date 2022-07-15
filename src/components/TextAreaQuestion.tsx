@@ -26,7 +26,7 @@ const TextAreaQuestion = ({
 }: Props) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  const { formData, setFormData, tab, setTab, isReversed, setIsReversed } =
+  const { formData, setFormData, tab, isReversed, handleClickForward } =
     useFormContext();
 
   // const keyHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -59,11 +59,6 @@ const TextAreaQuestion = ({
 
     return () => document.removeEventListener('keypress', (e) => keyHandler(e));
   }, [keyHandler]);
-
-  const handleClickForward = () => {
-    setIsReversed(false);
-    setTab((state) => state + 1);
-  };
 
   const {
     register,

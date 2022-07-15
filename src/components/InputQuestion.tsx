@@ -17,7 +17,7 @@ interface Props {
 const InputQuestion = ({ number, question }: Props) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  const { formData, setFormData, isReversed, tab, setTab, setIsReversed } =
+  const { formData, setFormData, isReversed, tab, handleClickForward } =
     useFormContext();
 
   useEffect(() => {
@@ -30,11 +30,6 @@ const InputQuestion = ({ number, question }: Props) => {
 
     return () => document.removeEventListener('keypress', (e) => keyHandler(e));
   });
-
-  const handleClickForward = () => {
-    setIsReversed(false);
-    setTab((state) => state + 1);
-  };
 
   const {
     register,

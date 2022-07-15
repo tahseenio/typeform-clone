@@ -6,6 +6,7 @@ export interface ContextProps {
   setIsReversed: React.Dispatch<React.SetStateAction<boolean>>;
   formData: Record<string, string>[];
   setFormData: React.Dispatch<React.SetStateAction<Record<string, string>[]>>;
+  handleClickForward: () => void;
 }
 
 export interface ProviderProps {
@@ -26,6 +27,11 @@ const FormContextProvider = ({ children }: ProviderProps) => {
 
   const [isReversed, setIsReversed] = useState(false);
 
+  const handleClickForward = () => {
+    setIsReversed(false);
+    setTab((state) => state + 1);
+  };
+
   return (
     <FormContext.Provider
       value={{
@@ -35,6 +41,7 @@ const FormContextProvider = ({ children }: ProviderProps) => {
         setIsReversed,
         formData,
         setFormData,
+        handleClickForward,
       }}
     >
       {children}
