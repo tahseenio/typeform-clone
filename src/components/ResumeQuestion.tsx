@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useFormContext } from '../context/FormContextProvider';
 import Arrow from './ui/Arrow';
 import Tick from './ui/Tick';
@@ -17,22 +17,23 @@ const ResumeQuestion = ({ number }: Props) => {
   const { formData, setFormData, isReversed, handleClickForward } =
     useFormContext();
 
+  const keyHandler = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      buttonRef.current?.click();
+    }
+  }, []);
+
   useEffect(() => {
-    const keyHandler = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        buttonRef.current?.click();
-      }
-    };
     document.addEventListener('keypress', (e) => keyHandler(e));
 
     return () => document.removeEventListener('keypress', (e) => keyHandler(e));
-  });
+  }, [keyHandler]);
 
   const { register, handleSubmit } = useForm<Record<string, string>>();
   const onSubmit = (data: Record<string, string>) => {
-    console.log('completed resume form');
+    // console.log('completed resume form');
     if (!!formData[number - 1]) {
-      console.log('updating resume');
+      // console.log('updating resume');
       const newArr = formData.map((item) => {
         if (item[`Q${number}`]) {
           return {

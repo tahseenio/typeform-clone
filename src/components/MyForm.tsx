@@ -121,7 +121,14 @@ const MyForm = () => {
     },
     {
       number: 10,
-      page: <Results key={10} />,
+      page: (
+        <Results
+          resultPara={`Thanks ${
+            formData[0]?.Q1?.split(' ')[0] ?? ''
+          }. we'll be in touch.`}
+          key={10}
+        />
+      ),
     },
   ];
 

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useFormContext } from '../context/FormContextProvider';
 import { Qvariants, reverseVariants } from '../data/variants';
@@ -20,16 +20,17 @@ const InputQuestion = ({ number, question }: Props) => {
   const { formData, setFormData, isReversed, tab, handleClickForward } =
     useFormContext();
 
+  const keyHandler = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      buttonRef.current?.click();
+    }
+  }, []);
+
   useEffect(() => {
-    const keyHandler = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        buttonRef.current?.click();
-      }
-    };
     document.addEventListener('keypress', (e) => keyHandler(e));
 
     return () => document.removeEventListener('keypress', (e) => keyHandler(e));
-  });
+  }, [keyHandler]);
 
   const {
     register,
@@ -60,6 +61,7 @@ const InputQuestion = ({ number, question }: Props) => {
     }
     handleClickForward();
   };
+
   return (
     <motion.main
       className='question'

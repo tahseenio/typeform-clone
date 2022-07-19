@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import homeImg from '../assets/home.png';
 import { useFormContext } from '../context/FormContextProvider';
 import { Qvariants } from '../data/variants';
@@ -9,16 +9,17 @@ const Home = () => {
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
+  const keyHandler = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      buttonRef.current?.click();
+    }
+  }, []);
+
   useEffect(() => {
-    const keyHandler = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        buttonRef.current?.click();
-      }
-    };
     document.addEventListener('keypress', (e) => keyHandler(e));
 
     return () => document.removeEventListener('keypress', (e) => keyHandler(e));
-  });
+  }, [keyHandler]);
 
   return (
     <motion.main className='home' variants={Qvariants} exit='exit'>
