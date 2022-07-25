@@ -8,6 +8,7 @@ import { schemaSelector } from '../data/schema';
 
 import Arrow from './ui/Arrow';
 import Tick from './ui/Tick';
+import ErrorImg from '../assets/ErrorImg';
 
 interface Props {
   number: number;
@@ -17,8 +18,15 @@ interface Props {
 const InputQuestion = ({ number, question }: Props) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  const { formData, setFormData, isReversed, tab, handleClickForward } =
-    useFormContext();
+  const {
+    formData,
+    setFormData,
+    isReversed,
+    tab,
+    handleClickForward,
+    setGlobalErrors,
+    globalErrors,
+  } = useFormContext();
 
   const keyHandler = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -41,6 +49,12 @@ const InputQuestion = ({ number, question }: Props) => {
     mode: 'onBlur',
     resolver: yupResolver(schemaSelector(tab)),
   });
+
+  // useEffect(() => {
+  //   console.log('ERRORS from react-form', errors);
+  //   setGlobalErrors(errors);
+  //   console.log('ERRORS from globalErrors', globalErrors);
+  // }, [errors]);
 
   useEffect(() => {
     setFocus(`Q${number}`);
@@ -83,7 +97,12 @@ const InputQuestion = ({ number, question }: Props) => {
           className='input'
           placeholder='Type your answer here...'
         />
-        <p>{errors[`Q${number}`] && errors[`Q${number}`]?.message}</p>
+        {errors[`Q${number}`] && (
+          <p className='error-para'>
+            <ErrorImg />
+            {errors[`Q${number}`]?.message}
+          </p>
+        )}
         <div className='button--wrapper'>
           <button type='submit' ref={buttonRef} className='button'>
             OK <Tick />

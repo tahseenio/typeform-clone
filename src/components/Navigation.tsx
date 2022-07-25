@@ -15,6 +15,9 @@ const Navigation = () => {
   };
 
   const handleClickForward = () => {
+    // check for errors on current page and if they exist just return
+    // console.log(globalErrors);
+    // if (globalErrors !== {}) return;
     setIsReversed(false);
     setTab((state) => state + 1);
   };

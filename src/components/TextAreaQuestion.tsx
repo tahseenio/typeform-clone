@@ -8,13 +8,13 @@ import { Qvariants, reverseVariants } from '../data/variants';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaSelector } from '../data/schema';
+import ErrorImg from '../assets/ErrorImg';
 
 interface Props {
   number: number;
   question: string;
   buttonText?: string;
   helperText?: string;
-  textBoxText?: string;
 }
 
 const TextAreaQuestion = ({
@@ -22,25 +22,17 @@ const TextAreaQuestion = ({
   question,
   buttonText = 'OK',
   helperText = 'Enter ↵',
-  textBoxText = 'Shift + Enter ↵',
 }: Props) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const { formData, setFormData, tab, isReversed, handleClickForward } =
     useFormContext();
 
-  // const keyHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-  //   console.log('PRESSING');
-  //   if (e.shiftKey && e.key === 'Enter') {
-  //     console.log(textAreaRef.current!.clientHeight + 50);
-  //     textAreaRef.current!.style.height = `${
-  //       textAreaRef.current!.clientHeight + 48
-  //     }px`;
-  //   }
-  // };
-
   const keyHandler = useCallback(
     (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && e.shiftKey === false) {
+        e.preventDefault();
+      }
       if (e.shiftKey === true) return;
       if (tab === 9) {
         if (e.ctrlKey === true) {
@@ -112,9 +104,14 @@ const TextAreaQuestion = ({
           placeholder='Type your answer here...'
         />
         <p className='textarea--helper'>
-          <strong>{textBoxText}</strong> to make a line break
+          <strong>Shift + Enter ↵</strong> to make a line break
         </p>
-        <p>{errors[`Q${number}`] && errors[`Q${number}`]?.message}</p>
+        {errors[`Q${number}`] && (
+          <p className='error-para'>
+            <ErrorImg />
+            {errors[`Q${number}`]?.message}
+          </p>
+        )}
         <div className='button--wrapper'>
           <button type='submit' ref={buttonRef} className='button'>
             {buttonText} <Tick />

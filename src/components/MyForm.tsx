@@ -1,17 +1,14 @@
 //  I realised how complex it can get as the project gets bigger and bigger. Something you may not have noticed beforehand, that is now causing an issue, has caused me to redesign my whole logic e.g my array update logic for certain questions as some users may skip a few questions and complete the later ones.
 
 // TODO
-// error states (like for #6)
-//  -- add submit validation, if required parts are not filled -> throw error
 // upload state for resume
 // dont allow submission until all values have been filled
-// style error messages
-// make responsive
-// add picture to results page
+//  -- add submit validation, if required parts are not filled -> throw error
+
 // disallow moving to next screen if question is required
 // BUG If form is not done in order then there will be issues tracking question answers and its default values.
-// //Possible fix: just use array filter and find the value and then use that
-// BUG pressing enter while in textbox makes a line break and then also submits it. It shouldnt make a line break
+// //Possible fix: ADD A GLOBAL ERRORS AND IF THE ERROR EXISTS THEN STOP OTHERWISE CONTINUE BUT ITS NOT WORKING
+//  // I want it so that if the next button is clicked just click the actual button to start the process again
 
 import Navigation from './Navigation';
 import { useFormContext } from '../context/FormContextProvider';
@@ -114,7 +111,6 @@ const MyForm = () => {
           question={`That's all we need for now. Anything else we should know?`}
           buttonText={'Submit'}
           helperText={'Ctrl + Enter ↵'}
-          textBoxText={'Enter ↵'}
           key={9}
         />
       ),

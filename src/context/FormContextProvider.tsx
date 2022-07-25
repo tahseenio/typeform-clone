@@ -7,6 +7,8 @@ export interface ContextProps {
   formData: Record<string, string>[];
   setFormData: React.Dispatch<React.SetStateAction<Record<string, string>[]>>;
   handleClickForward: () => void;
+  globalErrors: any;
+  setGlobalErrors: any;
 }
 
 export interface ProviderProps {
@@ -16,6 +18,7 @@ export interface ProviderProps {
 const FormContext = createContext<ContextProps | {}>({});
 
 const FormContextProvider = ({ children }: ProviderProps) => {
+  const [globalErrors, setGlobalErrors] = useState({});
   const [formData, setFormData] = useState<[]>([]);
 
   useEffect(() => {
@@ -42,6 +45,8 @@ const FormContextProvider = ({ children }: ProviderProps) => {
         formData,
         setFormData,
         handleClickForward,
+        globalErrors,
+        setGlobalErrors,
       }}
     >
       {children}

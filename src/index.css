@@ -161,6 +161,17 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0px 32px;
+}
+
+.error-para {
+  /* display: inline-block; */
+  display: inline-flex;
+  background-color: #f7e6e6;
+  border-radius: 4px;
+  padding: 5px;
+  color: #af0404;
+  margin-bottom: 12px;
 }
 
 /* 
@@ -200,9 +211,9 @@ Question
 */
 
 .question {
-  max-width: 950px;
+  max-width: 750px;
   width: 100%;
-  padding: 0 100px;
+  padding: 0 20px;
 }
 
 .textarea--helper {
@@ -268,4 +279,20 @@ Progress Bar
 .progress-bar--actual-progress {
   height: 100%;
   background-color: var(--blue);
+}
+
+/* 
+
+results
+
+*/
+
+.result__img {
+  max-width: 600px;
+  height: 100%;
+  width: 100%;
+}
+
+.result__para {
+  text-align: center;
 }
