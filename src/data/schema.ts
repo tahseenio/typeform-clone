@@ -14,7 +14,7 @@ const Q2schema = yup.object().shape({
 const Q3schema = yup.object().shape({
   Q3: yup
     .number()
-    .typeError('Please enter number only')
+    .typeError('Please enter numbers only')
     .min(1, 'Please enter a valid number')
     .required('A phone number is required'),
 });
