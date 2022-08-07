@@ -231,7 +231,7 @@ Navigation
 
 .navigation {
   width: 30px;
-  position: absolute;
+  position: fixed;
   display: flex;
   bottom: 16px;
   right: 60px;
